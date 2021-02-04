@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import MainPage from '../main-page/main-page';
 
 const App = (props) => {
-  const {numbers, quantity} = props;
   return (
-    <MainPage numbers={numbers} quantity = {quantity} />
+    <MainPage {...props} />
   );
 };
 

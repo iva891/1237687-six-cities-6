@@ -8,9 +8,7 @@ const Settings = {
 };
 
 const numbers = Array(Settings.CARD_NUMBER).fill(0)
-.map(function (item, index) {
-  return index + 1;
-});
+.map((_, index) => index + 1);
 
 ReactDom.render(
     <App numbers = {numbers} quantity = {Settings.offerQuantity} />,
