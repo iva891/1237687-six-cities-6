@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card';
+import {offersTypes} from '../../types/types';
+import PlaceList from '../place-list/place-list';
 
-const MainPage = ({numbers, quantity}) => {
+const MainPage = (props) => {
+  const {numbers, quantity, offers} = props;
   return (
     <>
       <div className="page page--gray page--main">
@@ -86,11 +88,7 @@ const MainPage = ({numbers, quantity}) => {
                     <li className="places__option" tabIndex={0}>Top rated first</li>
                   </ul>
                 </form>
-                <div className="cities__places-list places__list tabs__content">
-
-                  {numbers.map((number, i) => <PlaceCard key={number + i} />)}
-
-                </div>
+                <PlaceList offers={offers} numbers={numbers} />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map" />
@@ -105,7 +103,8 @@ const MainPage = ({numbers, quantity}) => {
 
 MainPage.propTypes = {
   numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
-  quantity: PropTypes.number.isRequired
+  quantity: PropTypes.number.isRequired,
+  offers: offersTypes
 };
 
 export default MainPage;

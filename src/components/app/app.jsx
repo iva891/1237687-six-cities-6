@@ -6,19 +6,27 @@ import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFound from '../not-found/not-found';
+import {offersTypes} from '../../types/types';
 
 const App = (props) => {
+  const {numbers, quantity, offers} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <MainPage {...props} />
+          <MainPage
+            numbers = {numbers}
+            quantity = {quantity}
+            offers = {offers}
+          />
         </Route>
         <Route path="/login" exact >
           <SignIn />
         </Route>
         <Route path="/favorites" exact>
-          <Favorites />
+          <Favorites
+            offers = {offers}
+          />
         </Route>
         <Route path="/offer/:id" exact>
           <Room />
@@ -33,7 +41,8 @@ const App = (props) => {
 
 App.propTypes = {
   numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
-  quantity: PropTypes.number.isRequired
+  quantity: PropTypes.number.isRequired,
+  offers: offersTypes
 };
 
 export default App;
