@@ -9,7 +9,7 @@ const PlaceList = (props) => {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {numbers.map((_, i) => <PlaceCard key={offers[i].id} offer = {offers[i]} onHover = {() => setState({...state, id: offers[i].id})} isFavorite={false} />)}
+      {numbers.map((_, i) => <PlaceCard key={offers[i].id} offer = {offers[i]} onHover = {() => setState({...state, id: offers[i].id})} />)}
     </div>
   );
 };

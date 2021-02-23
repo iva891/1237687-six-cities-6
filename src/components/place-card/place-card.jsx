@@ -53,7 +53,7 @@ const PlaceCard = (props) => {
 
 PlaceCard.propTypes = {
   onHover: PropTypes.func,
-  isFavorite: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool,
   offer: offerTypes
 };
 
