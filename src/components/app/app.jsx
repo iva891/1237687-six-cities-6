@@ -8,8 +8,7 @@ import Room from '../room/room';
 import NotFound from '../not-found/not-found';
 import {offersTypes} from '../../types/types';
 
-const App = (props) => {
-  const {numbers, quantity, offers} = props;
+const App = ({numbers, quantity, offers}) => {
   return (
     <BrowserRouter>
       <Switch>

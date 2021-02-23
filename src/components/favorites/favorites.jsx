@@ -4,7 +4,7 @@ import FavoritesLocation from '../favorites-locations/favorites-location';
 
 const Favorites = (props) => {
   const {offers} = props;
-  const favoriteCards = offers.filter((offer) => offer.favorite === true);
+  const favoriteCards = offers.filter((offer) => offer.favorite);
   const cities = favoriteCards.map((card) => card.city.name);
   const unicCities = cities.filter((city, i) => cities.indexOf(city) === i);
 

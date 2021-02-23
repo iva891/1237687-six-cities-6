@@ -1,9 +1,8 @@
 import React from 'react';
 import ReviewForm from '../review-form/review-form';
 
-const Room = () => {
-
-  return (
+const Room = () =>
+  (
     <>
       <div className="page">
         <header className="header">
@@ -280,6 +279,5 @@ const Room = () => {
       </div>
     </>
   );
-};
 
 export default Room;

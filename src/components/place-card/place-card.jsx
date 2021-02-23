@@ -5,12 +5,12 @@ import {Link} from 'react-router-dom';
 
 const PlaceCard = (props) => {
   const {offer, onHover, isFavorite} = props;
-  const {price, previewImage, premium, favorite, rating, title, type} = offer;
+  const {price, previewImage, premium, favorite, rating, title, type} = offer || {};
 
   return (
     <>
       <article className={`${isFavorite ? `favorites__card` : `cities__place-card`} place-card`}
-        onMouseOver = {props.onHover && onHover}>
+        onMouseOver = {onHover || Function.prototype}>
         {
           premium &&
           <div className="place-card__mark">
