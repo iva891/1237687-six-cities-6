@@ -7,11 +7,9 @@ const PlaceList = (props) => {
   const {numbers, offers} = props;
   const [state, setState] = useState({});
 
-  let isFavorite = false;
-
   return (
     <div className="cities__places-list places__list tabs__content">
-      {numbers.map((_, i) => <PlaceCard key={offers[i].id} offer = {offers[i]} onHover = {() => setState({...state, id: offers[i].id})} isFavorite={isFavorite} />)}
+      {numbers.map((_, i) => <PlaceCard key={offers[i].id} offer = {offers[i]} onHover = {() => setState({...state, id: offers[i].id})} isFavorite={false} />)}
     </div>
   );
 };

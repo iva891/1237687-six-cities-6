@@ -5,7 +5,6 @@ import PlaceCard from '../place-card/place-card';
 
 const FavoritesLocation = (props) => {
   const {city, favoriteCards} = props;
-  let isFavorite = true;
 
   return (
     <li className="favorites__locations-items">
@@ -18,7 +17,7 @@ const FavoritesLocation = (props) => {
       </div>
       <div className="favorites__places">
         {favoriteCards.map((card, i) =>
-          card.city.name === city && <PlaceCard key={i} offer={card} isFavorite={isFavorite} />
+          card.city.name === city && <PlaceCard key={i} offer={card} isFavorite />
         )}
       </div>
     </li>
