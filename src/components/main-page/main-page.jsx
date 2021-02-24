@@ -92,7 +92,6 @@ const MainPage = (props) => {
                 <PlaceList offers={offers} numbers={numbers} />
               </section>
               <div className="cities__right-section">
-                {/* <section className="cities__map map" /> */}
                 <Map points={offers}/>
               </div>
             </div>
