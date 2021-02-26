@@ -5,7 +5,7 @@ import {offersTypes} from '../../types/types';
 import 'leaflet/dist/leaflet.css';
 
 const Map = ({points}) => {
-  const mapRef = useRef();
+  const mapRef = useRef(null);
 
   const city = {
     lat: 52.38333,
@@ -27,7 +27,7 @@ const Map = ({points}) => {
         .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
           attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
         })
-          .addTo(mapRef.current);
+        .addTo(mapRef.current);
 
       points.forEach((point) => {
         const customIcon = leaflet.icon({
@@ -35,14 +35,15 @@ const Map = ({points}) => {
           iconSize: [30, 30]
         });
 
-        leaflet.marker({
-          lat: point.location.lat,
-          lng: point.location.lng
-        },
-        {
-          icon: customIcon
-        })
-        .addTo(mapRef.current)
+        leaflet
+          .marker({
+            lat: point.location.lat,
+            lng: point.location.lng
+          },
+          {
+            icon: customIcon
+          })
+          .addTo(mapRef.current)
           .bindPopup(point.location.title);
 
         return () => {
