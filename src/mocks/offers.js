@@ -6,6 +6,11 @@ export default [
     "id": 1,
     "favorite": true,
     "premium": true,
+    "location": {
+      "lat": 52.3909553943508,
+      "lng": 4.85309666406198,
+      "zoom": 8
+    },
     "previewImage": `img/apartment-02.jpg`,
     "price": 120,
     "rating": 2,
@@ -19,6 +24,11 @@ export default [
     "id": 2,
     "favorite": true,
     "premium": true,
+    "location": {
+      "lat": 52.369553943508,
+      "lng": 4.85309666406198,
+      "zoom": 8
+    },
     "previewImage": `img/apartment-01.jpg`,
     "price": 100,
     "rating": 8,
@@ -32,6 +42,11 @@ export default [
     "id": 3,
     "favorite": true,
     "premium": false,
+    "location": {
+      "lat": 52.3909553943508,
+      "lng": 4.929309666406198,
+      "zoom": 8
+    },
     "previewImage": `img/apartment-03.jpg`,
     "price": 140,
     "rating": 7.4,
@@ -45,6 +60,11 @@ export default [
     "id": 4,
     "favorite": true,
     "premium": false,
+    "location": {
+      "lat": 52.3809553943508,
+      "lng": 4.939309666406198,
+      "zoom": 8
+    },
     "previewImage": `img/apartment-02.jpg`,
     "price": 130,
     "rating": 5.8,
