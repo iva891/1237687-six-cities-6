@@ -8,15 +8,15 @@ import Room from '../room/room';
 import NotFound from '../not-found/not-found';
 import {offersTypes} from '../../types/types';
 
-const App = ({numbers, quantity, offers}) => {
+const App = ({numbers, offers, cities}) => {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
           <MainPage
             numbers = {numbers}
-            quantity = {quantity}
             offers = {offers}
+            cities = {cities}
           />
         </Route>
         <Route path="/login" exact >
@@ -40,8 +40,8 @@ const App = ({numbers, quantity, offers}) => {
 
 App.propTypes = {
   numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
-  quantity: PropTypes.number.isRequired,
-  offers: offersTypes
+  offers: offersTypes,
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default App;

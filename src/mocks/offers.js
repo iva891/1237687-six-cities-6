@@ -1,14 +1,19 @@
 export default [
   {
     "city": {
+      "location": {
+        "latitude": 52.370216,
+        "longitude": 4.895168,
+        "zoom": 10
+      },
       "name": `Amsterdam`
     },
     "id": 1,
     "favorite": true,
     "premium": true,
     "location": {
-      "lat": 52.3909553943508,
-      "lng": 4.85309666406198,
+      "latitude": 52.3909553943508,
+      "longitude": 4.85309666406198,
       "zoom": 8
     },
     "previewImage": `img/apartment-02.jpg`,
@@ -19,14 +24,19 @@ export default [
   },
   {
     "city": {
+      "location": {
+        "latitude": 52.385216,
+        "longitude": 4.895248,
+        "zoom": 10
+      },
       "name": `Amsterdam`
     },
     "id": 2,
     "favorite": true,
     "premium": true,
     "location": {
-      "lat": 52.369553943508,
-      "lng": 4.85309666406198,
+      "latitude": 52.369553943508,
+      "longitude": 4.85309666406198,
       "zoom": 8
     },
     "previewImage": `img/apartment-01.jpg`,
@@ -37,14 +47,19 @@ export default [
   },
   {
     "city": {
+      "location": {
+        "latitude": 52.372216,
+        "longitude": 4.795568,
+        "zoom": 10
+      },
       "name": `Cologne`
     },
     "id": 3,
     "favorite": true,
     "premium": false,
     "location": {
-      "lat": 52.3909553943508,
-      "lng": 4.929309666406198,
+      "latitude": 52.3909553943508,
+      "longitude": 4.929309666406198,
       "zoom": 8
     },
     "previewImage": `img/apartment-03.jpg`,
@@ -55,14 +70,19 @@ export default [
   },
   {
     "city": {
+      "location": {
+        "latitude": 52.370216,
+        "longitude": 4.855068,
+        "zoom": 10
+      },
       "name": `Paris`
     },
     "id": 4,
     "favorite": true,
     "premium": false,
     "location": {
-      "lat": 52.3809553943508,
-      "lng": 4.939309666406198,
+      "latitude": 52.3809553943508,
+      "longitude": 4.939309666406198,
       "zoom": 8
     },
     "previewImage": `img/apartment-02.jpg`,
