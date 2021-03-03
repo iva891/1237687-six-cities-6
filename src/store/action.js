@@ -1,6 +1,6 @@
 
 export const ActionType = {
-  CHANGE_CITY: `main/changeCity`
+  CHANGE_CITY: `common/changeCity`
 };
 
 export const ActionCreator = {
