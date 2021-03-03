@@ -4,19 +4,19 @@ import {offersTypes} from '../../types/types';
 import PlaceCard from '../place-card/place-card';
 
 const PlaceList = (props) => {
-  const {numbers, offers} = props;
+  const {cityNumbers, cityOffers} = props;
   const [state, setState] = useState({});
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {numbers.map((_, i) => <PlaceCard key={offers[i].id} offer = {offers[i]} onHover = {() => setState({...state, id: offers[i].id})} />)}
+      {cityNumbers.map((_, i) => <PlaceCard key={cityOffers[i].id} offer = {cityOffers[i]} onHover = {() => setState({...state, id: cityOffers[i].id})} />)}
     </div>
   );
 };
 
 PlaceList.propTypes = {
-  numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
-  offers: offersTypes
+  cityNumbers: PropTypes.array.isRequired,
+  cityOffers: offersTypes
 };
 
 export default PlaceList;

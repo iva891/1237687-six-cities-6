@@ -7,11 +7,19 @@ import 'leaflet/dist/leaflet.css';
 const Map = ({points}) => {
   const mapRef = useRef(null);
 
-  const city = {
+  let city = {
     lat: 52.38333,
     lng: 4.9,
     zoom: 10
   };
+
+  if (points.length) {
+    city = {
+      lat: points[0].city.location.latitude,
+      lng: points[0].city.location.longitude,
+      zoom: points[0].city.location.zoom
+    };
+  }
 
   useEffect(() => {
     if (mapRef.current) {
@@ -28,29 +36,34 @@ const Map = ({points}) => {
           attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
         })
         .addTo(mapRef.current);
-
-      points.forEach((point) => {
-        const customIcon = leaflet.icon({
-          iconUrl: `./img/pin.svg`,
-          iconSize: [30, 30]
-        });
-
-        leaflet
-          .marker({
-            lat: point.location.lat,
-            lng: point.location.lng
-          },
-          {
-            icon: customIcon
-          })
-          .addTo(mapRef.current)
-          .bindPopup(point.location.title);
-
-        return () => {
-          mapRef.current.remove();
-        };
-      });
     }
+    return () => {
+      mapRef.current.remove();
+    };
+  });
+
+  useEffect(() => {
+    points.forEach((point) => {
+      const customIcon = leaflet.icon({
+        iconUrl: `./img/pin.svg`,
+        iconSize: [30, 30]
+      });
+
+      leaflet
+        .marker({
+          lat: point.location.latitude,
+          lng: point.location.longitude
+        },
+        {
+          icon: customIcon
+        })
+        .addTo(mapRef.current)
+        .bindPopup(point.location.title);
+
+      return () => {
+        mapRef.current.remove();
+      };
+    });
   }, [points]);
 
   return (
