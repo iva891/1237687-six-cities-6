@@ -10,8 +10,8 @@ const CityList = ({cities, city, onCityChange}) => {
   };
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((item, i) =>
-        <li className="locations__item" key={i}>
+      {cities.map((item) =>
+        <li className="locations__item" key={item}>
           <a
             className={`locations__item-link tabs__item ${item === city ? `tabs__item--active` : ``} `}
             href="#"

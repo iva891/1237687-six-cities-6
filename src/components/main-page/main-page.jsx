@@ -17,7 +17,7 @@ const MainPage = (props) => {
     if (offers.length === 0) {
       onLoadOffers();
     }
-  }, []);
+  }, [offers, onLoadOffers]);
 
   if (offers.length === 0) {
     return (

@@ -15,7 +15,7 @@ const Favorites = (props) => {
     if (favorites.length === 0) {
       onLoadFavorites();
     }
-  }, []);
+  }, [favorites, onLoadFavorites]);
 
   if (favorites.length === 0) {
     return (
@@ -52,8 +52,8 @@ const Favorites = (props) => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {unicCities.map((city, i) =>
-                <FavoritesLocation key={i} city={city} favorites={favorites} />
+              {unicCities.map((city) =>
+                <FavoritesLocation key={city} city={city} favorites={favorites} />
               )}
             </ul>
           </section>
