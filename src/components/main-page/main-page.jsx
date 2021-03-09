@@ -1,15 +1,29 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {offersTypes} from '../../types/types';
 import PlaceList from '../place-list/place-list';
 import CityList from '../city-list/city-list';
 import Map from '../map/map';
 import {connect} from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen';
+import {fetchOffers} from "../../store/api-actions";
 
 const MainPage = (props) => {
-  const {numbers, offers, cities, city} = props;
+  const {numbers, offers, cities, city, onLoadOffers} = props;
   const cityOffers = offers.filter((offer) => offer.city.name === city);
   const cityNumbers = numbers.length > cityOffers.length ? cityOffers : numbers;
+
+  useEffect(() => {
+    if (offers.length === 0) {
+      onLoadOffers();
+    }
+  }, [offers, onLoadOffers]);
+
+  if (offers.length === 0) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <>
@@ -47,7 +61,7 @@ const MainPage = (props) => {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{cityNumbers.length === 0 ? `No` : cityNumbers.length} places to stay in {city}</b>
+                <b className="places__found">{cityNumbers.length === 0 ? `No` : cityOffers.length} places to stay in {city}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex={0}>
@@ -80,12 +94,18 @@ MainPage.propTypes = {
   numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
   offers: offersTypes,
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,
-  city: PropTypes.string.isRequired
+  city: PropTypes.string.isRequired,
+  onLoadOffers: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
+  offers: state.offers,
   city: state.city,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onLoadOffers: () => dispatch(fetchOffers())
+});
+
 export {MainPage};
-export default connect(mapStateToProps, null)(MainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

@@ -1,7 +1,9 @@
 import {ActionType} from './action';
 
 const initialState = {
-  city: `Paris`
+  city: `Paris`,
+  offers: [],
+  favorites: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +12,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         city: action.payload
+      };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: action.payload,
+      };
+    case ActionType.LOAD_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload,
       };
     default:
       return {...state};
