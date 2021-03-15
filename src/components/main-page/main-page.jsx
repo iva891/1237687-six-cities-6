@@ -80,7 +80,9 @@ const MainPage = (props) => {
                 <PlaceList cityOffers={cityOffers} cityNumbers={cityNumbers} />
               </section>
               <div className="cities__right-section">
+
                 <Map points={cityOffers}/>
+
               </div>
             </div>
           </div>

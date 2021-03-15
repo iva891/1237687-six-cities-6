@@ -4,12 +4,32 @@ import {offerTypes} from '../../types/types';
 import {Link} from 'react-router-dom';
 
 const PlaceCard = (props) => {
-  const {offer, onHover, isFavorite} = props;
-  const {price, previewImage, premium, favorite, rating, title, type} = offer || {};
+  const {offer, onHover, isFavorite, isRoom} = props;
+  const {price, previewImage, premium, favorite, rating, title, type, id} = offer || {};
+
+  const cardClassName = () => {
+    if (isFavorite) {
+      return `favorites__card`;
+    }
+    if (isRoom) {
+      return `near-places__card`;
+    }
+    return `cities__place-card`;
+  };
+
+  const imageClassName = () => {
+    if (isFavorite) {
+      return `favorites__image-wrapper`;
+    }
+    if (isRoom) {
+      return `near-places__image-wrapper`;
+    }
+    return `cities__image-wrapper`;
+  };
 
   return (
     <>
-      <article className={`${isFavorite ? `favorites__card` : `cities__place-card`} place-card`}
+      <article className={`${cardClassName()} place-card`}
         onMouseOver = {onHover || Function.prototype}>
         {
           premium &&
@@ -17,7 +37,7 @@ const PlaceCard = (props) => {
             <span>Premium</span>
           </div>
         }
-        <div className={`${isFavorite ? `favorites__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
+        <div className={`${imageClassName()} place-card__image-wrapper`}>
           <a href="#">
             <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
           </a>
@@ -42,7 +62,7 @@ const PlaceCard = (props) => {
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to="/offer/:id">{title}</Link>
+            <Link to={`/offer/${id}`}>{title}</Link>
           </h2>
           <p className="place-card__type" style={{textTransform: `capitalize`}}>{type}</p>
         </div>
@@ -54,7 +74,8 @@ const PlaceCard = (props) => {
 PlaceCard.propTypes = {
   onHover: PropTypes.func,
   isFavorite: PropTypes.bool,
-  offer: offerTypes
+  offer: offerTypes,
+  isRoom: PropTypes.bool,
 };
 
 export default PlaceCard;

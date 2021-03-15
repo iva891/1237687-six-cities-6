@@ -1,10 +1,12 @@
 import React, {useEffect, useRef} from 'react';
 import leaflet from 'leaflet';
 import {offersTypes} from '../../types/types';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({points}) => {
+const Map = ({points, isRoom, cardId, offerId}) => {
   const mapRef = useRef(null);
 
   let city = {
@@ -44,10 +46,19 @@ const Map = ({points}) => {
 
   useEffect(() => {
     points.forEach((point) => {
-      const customIcon = leaflet.icon({
-        iconUrl: `./img/pin.svg`,
-        iconSize: [30, 30]
-      });
+      let customIcon = {};
+
+      if (point.id === cardId || point.id === offerId) {
+        customIcon = leaflet.icon({
+          iconUrl: `./img/pin-active.svg`,
+          iconSize: [30, 30]
+        });
+      } else {
+        customIcon = leaflet.icon({
+          iconUrl: `./img/pin.svg`,
+          iconSize: [30, 30]
+        });
+      }
 
       leaflet
         .marker({
@@ -64,15 +75,26 @@ const Map = ({points}) => {
         mapRef.current.remove();
       };
     });
-  }, [points]);
+  }, [points, cardId]);
 
   return (
-    <div id="map" style={{width: `100%`}} ref={mapRef}></div>
+    <div className={`${isRoom ? `property__map` : `cities__map`} map`} id="map" style={{width: `100%`}} ref={mapRef}></div>
+
   );
 };
 
 Map.propTypes = {
-  points: offersTypes
+  points: offersTypes,
+  isRoom: PropTypes.bool,
+  cardId: PropTypes.number,
+  offerId: PropTypes.number,
 };
 
-export default Map;
+const mapStateToProps = (state) => ({
+  cardId: state.hoverCardId,
+  offerId: state.offer.id,
+});
+
+export {Map};
+export default connect(mapStateToProps)(Map);
+

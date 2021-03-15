@@ -24,8 +24,7 @@ const App = ({numbers, cities}) => {
         <Route path="/favorites" exact>
           <Favorites />
         </Route>
-        <Route path="/offer/:id" exact>
-          <Room />
+        <Route path="/offer/:id" render= { ({match}) => <Room id={match.params.id}/> } exact>
         </Route>
         <Route>
           <NotFound />
