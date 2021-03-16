@@ -29,7 +29,7 @@ const ReviewsList = ({id, comments, onLoadComments, onResetComments}) => {
 
 ReviewsList.propTypes = {
   comments: offersTypes,
-  id: PropTypes.number,
+  id: PropTypes.string,
   onLoadComments: PropTypes.func,
   onResetComments: PropTypes.func,
 };

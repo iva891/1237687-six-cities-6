@@ -20,7 +20,7 @@ const Room = ({id, offer, nearbyOffers, onLoadOffer, onResetOffer, onLoadNearbyO
   };
 
   useEffect(() => {
-    if (Object.keys(offer).length === 0) {
+    if (offer.id !== id) {
       onLoadOffer(id);
       onLoadNearbyOffers(id);
     }

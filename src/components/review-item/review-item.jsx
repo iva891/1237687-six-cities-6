@@ -33,7 +33,7 @@ const ReviewItem = ({comment}) => {
 };
 
 ReviewItem.propTypes = {
-  comment: PropTypes.array,
+  comment: PropTypes.object,
 };
 
 export default ReviewItem;
