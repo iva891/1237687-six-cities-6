@@ -16,3 +16,27 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
   }) => data.map(prepareData))
   .then((data) => dispatch(ActionCreator.loadFavorites(data)))
 );
+
+export const fetchOffer = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}`)
+  .then(({
+    data
+  }) => prepareData(data))
+  .then((data) => dispatch(ActionCreator.setOffer(data)))
+);
+
+export const fetchComments = (id) => (dispatch, _getState, api) => (
+  api.get(`/comments/${id}`)
+  .then(({
+    data
+  }) => data.map(prepareData))
+  .then((data) => dispatch(ActionCreator.setComments(data)))
+);
+
+export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
+  api.get(`/hotels/${id}/nearby`)
+  .then(({
+    data
+  }) => data.map(prepareData))
+  .then((data) => dispatch(ActionCreator.setNearbyOffers(data)))
+);

@@ -4,6 +4,10 @@ const initialState = {
   city: `Paris`,
   offers: [],
   favorites: [],
+  offer: {},
+  comments: [],
+  nearbyOffers: [],
+  activeCardId: 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +26,26 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         favorites: action.payload,
+      };
+    case ActionType.SET_OFFER:
+      return {
+        ...state,
+        offer: action.payload,
+      };
+    case ActionType.SET_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
+      };
+    case ActionType.SET_NEARBY_OFFERS:
+      return {
+        ...state,
+        nearbyOffers: action.payload,
+      };
+    case ActionType.HOVER_CARD:
+      return {
+        ...state,
+        activeCardId: action.payload,
       };
     default:
       return {...state};

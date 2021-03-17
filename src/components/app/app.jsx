@@ -24,8 +24,7 @@ const App = ({numbers, cities}) => {
         <Route path="/favorites" exact>
           <Favorites />
         </Route>
-        <Route path="/offer/:id" exact>
-          <Room />
+        <Route path="/offer/:id" component={ Room } exact>
         </Route>
         <Route>
           <NotFound />

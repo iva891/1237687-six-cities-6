@@ -2,7 +2,11 @@
 export const ActionType = {
   CHANGE_CITY: `common/changeCity`,
   LOAD_OFFERS: `offers/loadOffers`,
-  LOAD_FAVORITES: `favorites/loadFavofites`
+  LOAD_FAVORITES: `favorites/loadFavofites`,
+  SET_OFFER: `room/setOffer`,
+  SET_COMMENTS: `room/setComments`,
+  SET_NEARBY_OFFERS: `room/setNearbyOffers`,
+  HOVER_CARD: `placeList/setActiveCardId`,
 };
 
 export const ActionCreator = {
@@ -17,5 +21,21 @@ export const ActionCreator = {
   loadFavorites: (favorites) => ({
     type: ActionType.LOAD_FAVORITES,
     payload: favorites
+  }),
+  setOffer: (offer) => ({
+    type: ActionType.SET_OFFER,
+    payload: offer
+  }),
+  setComments: (comments) => ({
+    type: ActionType.SET_COMMENTS,
+    payload: comments
+  }),
+  setNearbyOffers: (offers) => ({
+    type: ActionType.SET_NEARBY_OFFERS,
+    payload: offers
+  }),
+  setActiveCardId: (id) => ({
+    type: ActionType.HOVER_CARD,
+    payload: id
   }),
 };

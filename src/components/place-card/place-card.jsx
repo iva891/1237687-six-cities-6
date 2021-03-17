@@ -4,20 +4,32 @@ import {offerTypes} from '../../types/types';
 import {Link} from 'react-router-dom';
 
 const PlaceCard = (props) => {
-  const {offer, onHover, isFavorite} = props;
-  const {price, previewImage, premium, favorite, rating, title, type} = offer || {};
+  const {offer, onHover, onHoverOut, isFavorite, isRoom} = props;
+  const {price, previewImage, premium, favorite, rating, title, type, id} = offer || {};
+
+  const setClassName = () => {
+    switch (true) {
+      case isFavorite:
+        return {card: `favorites__card`, image: `favorites__image-wrapper`};
+      case isRoom:
+        return {card: `near-places__card`, image: `near-places__image-wrapper`};
+      default:
+        return {card: `cities__place-card`, image: `cities__image-wrapper`};
+    }
+  };
 
   return (
     <>
-      <article className={`${isFavorite ? `favorites__card` : `cities__place-card`} place-card`}
-        onMouseOver = {onHover || Function.prototype}>
+      <article className={`${setClassName().card} place-card`}
+        onMouseOver = {onHover || Function.prototype}
+        onMouseOut = {onHoverOut || Function.prototype}>
         {
           premium &&
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
         }
-        <div className={`${isFavorite ? `favorites__image-wrapper` : `cities__image-wrapper`} place-card__image-wrapper`}>
+        <div className={`${setClassName().image} place-card__image-wrapper`}>
           <a href="#">
             <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
           </a>
@@ -42,7 +54,7 @@ const PlaceCard = (props) => {
             </div>
           </div>
           <h2 className="place-card__name">
-            <Link to="/offer/:id">{title}</Link>
+            <Link to={`/offer/${id}`}>{title}</Link>
           </h2>
           <p className="place-card__type" style={{textTransform: `capitalize`}}>{type}</p>
         </div>
@@ -53,8 +65,10 @@ const PlaceCard = (props) => {
 
 PlaceCard.propTypes = {
   onHover: PropTypes.func,
+  onHoverOut: PropTypes.func,
   isFavorite: PropTypes.bool,
-  offer: offerTypes
+  offer: offerTypes,
+  isRoom: PropTypes.bool,
 };
 
 export default PlaceCard;
