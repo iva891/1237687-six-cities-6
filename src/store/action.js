@@ -3,13 +3,10 @@ export const ActionType = {
   CHANGE_CITY: `common/changeCity`,
   LOAD_OFFERS: `offers/loadOffers`,
   LOAD_FAVORITES: `favorites/loadFavofites`,
-  LOAD_OFFER: `room/loadOffer`,
-  RESET_OFFER: `room/resetOffer`,
-  LOAD_COMMENTS: `room/loadComments`,
-  RESET_COMMENTS: `room/resetComments`,
-  LOAD_NEARBY_OFFERS: `room/loadNearbyOffers`,
-  RESET_NEARBY_OFFERS: `room/resetNearbyOffers`,
-  HOVER_CARD: `placeList/hoverCard`,
+  SET_OFFER: `room/setOffer`,
+  SET_COMMENTS: `room/setComments`,
+  SET_NEARBY_OFFERS: `room/setNearbyOffers`,
+  HOVER_CARD: `placeList/setActiveCardId`,
 };
 
 export const ActionCreator = {
@@ -25,28 +22,19 @@ export const ActionCreator = {
     type: ActionType.LOAD_FAVORITES,
     payload: favorites
   }),
-  loadOffer: (offer) => ({
-    type: ActionType.LOAD_OFFER,
+  setOffer: (offer) => ({
+    type: ActionType.SET_OFFER,
     payload: offer
   }),
-  resetOffer: () => ({
-    type: ActionType.RESET_OFFER,
-  }),
-  loadComments: (comments) => ({
-    type: ActionType.LOAD_COMMENTS,
+  setComments: (comments) => ({
+    type: ActionType.SET_COMMENTS,
     payload: comments
   }),
-  resetComments: () => ({
-    type: ActionType.RESET_COMMENTS,
-  }),
-  loadNearbyOffers: (offers) => ({
-    type: ActionType.LOAD_NEARBY_OFFERS,
+  setNearbyOffers: (offers) => ({
+    type: ActionType.SET_NEARBY_OFFERS,
     payload: offers
   }),
-  resetNearbyOffers: () => ({
-    type: ActionType.RESET_NEARBY_OFFERS,
-  }),
-  hoverCard: (id) => ({
+  setActiveCardId: (id) => ({
     type: ActionType.HOVER_CARD,
     payload: id
   }),

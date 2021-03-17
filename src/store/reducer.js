@@ -7,7 +7,7 @@ const initialState = {
   offer: {},
   comments: [],
   nearbyOffers: [],
-  hoverCardId: 0,
+  activeCardId: 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -27,40 +27,25 @@ const reducer = (state = initialState, action) => {
         ...state,
         favorites: action.payload,
       };
-    case ActionType.LOAD_OFFER:
+    case ActionType.SET_OFFER:
       return {
         ...state,
         offer: action.payload,
       };
-    case ActionType.RESET_OFFER:
-      return {
-        ...state,
-        offer: {},
-      };
-    case ActionType.LOAD_COMMENTS:
+    case ActionType.SET_COMMENTS:
       return {
         ...state,
         comments: action.payload,
       };
-    case ActionType.RESET_COMMENTS:
-      return {
-        ...state,
-        comments: [],
-      };
-    case ActionType.LOAD_NEARBY_OFFERS:
+    case ActionType.SET_NEARBY_OFFERS:
       return {
         ...state,
         nearbyOffers: action.payload,
       };
-    case ActionType.RESET_NEARBY_OFFERS:
-      return {
-        ...state,
-        nearbyOffers: [],
-      };
     case ActionType.HOVER_CARD:
       return {
         ...state,
-        hoverCardId: action.payload,
+        activeCardId: action.payload,
       };
     default:
       return {...state};

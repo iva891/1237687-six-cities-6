@@ -22,7 +22,7 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
   .then(({
     data
   }) => prepareData(data))
-  .then((data) => dispatch(ActionCreator.loadOffer(data)))
+  .then((data) => dispatch(ActionCreator.setOffer(data)))
 );
 
 export const fetchComments = (id) => (dispatch, _getState, api) => (
@@ -30,7 +30,7 @@ export const fetchComments = (id) => (dispatch, _getState, api) => (
   .then(({
     data
   }) => data.map(prepareData))
-  .then((data) => dispatch(ActionCreator.loadComments(data)))
+  .then((data) => dispatch(ActionCreator.setComments(data)))
 );
 
 export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
@@ -38,5 +38,5 @@ export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
   .then(({
     data
   }) => data.map(prepareData))
-  .then((data) => dispatch(ActionCreator.loadNearbyOffers(data)))
+  .then((data) => dispatch(ActionCreator.setNearbyOffers(data)))
 );

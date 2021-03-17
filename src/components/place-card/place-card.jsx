@@ -4,40 +4,32 @@ import {offerTypes} from '../../types/types';
 import {Link} from 'react-router-dom';
 
 const PlaceCard = (props) => {
-  const {offer, onHover, isFavorite, isRoom} = props;
+  const {offer, onHover, onHoverOut, isFavorite, isRoom} = props;
   const {price, previewImage, premium, favorite, rating, title, type, id} = offer || {};
 
-  const cardClassName = () => {
-    if (isFavorite) {
-      return `favorites__card`;
+  const setClassName = () => {
+    switch (true) {
+      case isFavorite:
+        return {card: `favorites__card`, image: `favorites__image-wrapper`};
+      case isRoom:
+        return {card: `near-places__card`, image: `near-places__image-wrapper`};
+      default:
+        return {card: `cities__place-card`, image: `cities__image-wrapper`};
     }
-    if (isRoom) {
-      return `near-places__card`;
-    }
-    return `cities__place-card`;
-  };
-
-  const imageClassName = () => {
-    if (isFavorite) {
-      return `favorites__image-wrapper`;
-    }
-    if (isRoom) {
-      return `near-places__image-wrapper`;
-    }
-    return `cities__image-wrapper`;
   };
 
   return (
     <>
-      <article className={`${cardClassName()} place-card`}
-        onMouseOver = {onHover || Function.prototype}>
+      <article className={`${setClassName().card} place-card`}
+        onMouseOver = {onHover || Function.prototype}
+        onMouseOut = {onHoverOut || Function.prototype}>
         {
           premium &&
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
         }
-        <div className={`${imageClassName()} place-card__image-wrapper`}>
+        <div className={`${setClassName().image} place-card__image-wrapper`}>
           <a href="#">
             <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
           </a>
@@ -73,6 +65,7 @@ const PlaceCard = (props) => {
 
 PlaceCard.propTypes = {
   onHover: PropTypes.func,
+  onHoverOut: PropTypes.func,
   isFavorite: PropTypes.bool,
   offer: offerTypes,
   isRoom: PropTypes.bool,

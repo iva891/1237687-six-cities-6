@@ -42,7 +42,7 @@ const Map = ({points, isRoom, cardId, offerId}) => {
     return () => {
       mapRef.current.remove();
     };
-  });
+  }, []);
 
   useEffect(() => {
     points.forEach((point) => {
@@ -91,7 +91,7 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  cardId: state.hoverCardId,
+  cardId: state.activeCardId,
   offerId: state.offer.id,
 });
 

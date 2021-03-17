@@ -12,8 +12,7 @@ const PlaceList = (props) => {
     <div className={`${isRoom
       ? `near-places__list`
       : `cities__places-list tabs__content`} places__list`}>
-      {cityNumbers.map((_, i) => <PlaceCard key={cityOffers[i].id} offer = {cityOffers[i]} onHover = {() => onHoverCard(cityOffers[i].id)} isRoom={isRoom} />)}
-      {/* {cityNumbers.map((_, i) => <PlaceCard key={cityOffers[i].id} offer = {cityOffers[i]} onHover = {() => setState({...state, id: cityOffers[i].id})} isRoom />)} */}
+      {cityNumbers.map((_, i) => <PlaceCard key={cityOffers[i].id} offer = {cityOffers[i]} onHover = {() => onHoverCard(cityOffers[i].id)} onHoverOut = {() => onHoverCard(0)} isRoom={isRoom} />)}
     </div>
   );
 };
@@ -26,7 +25,7 @@ PlaceList.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onHoverCard: (id) => dispatch(ActionCreator.hoverCard(id))
+  onHoverCard: (id) => dispatch(ActionCreator.setActiveCardId(id))
 });
 
 export {PlaceList};

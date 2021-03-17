@@ -3,16 +3,19 @@ import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {connect} from 'react-redux';
-import {fetchOffer} from "../../store/api-actions";
-import {fetchNearbyOffers} from "../../store/api-actions";
+import {fetchOffer, fetchNearbyOffers} from "../../store/api-actions";
 import {ActionCreator} from '../../store/action';
 import PlaceList from '../place-list/place-list';
 import Map from '../map/map';
-import {offersTypes} from '../../types/types';
-import {offerTypes} from '../../types/types';
+import {offersTypes, offerTypes} from '../../types/types';
 import PropTypes from 'prop-types';
 
-const Room = ({id, offer, nearbyOffers, onLoadOffer, onResetOffer, onLoadNearbyOffers, onResetNearbyOffers}) => {
+const Room = (props) => {
+
+  const {offer, nearbyOffers, onLoadOffer, onResetOffer, onLoadNearbyOffers, onResetNearbyOffers} = props;
+  const id = props.match.params.id;
+
+  const IMAGE_NUMBER = 6;
 
   const onReset = () => {
     onResetOffer();
@@ -35,7 +38,7 @@ const Room = ({id, offer, nearbyOffers, onLoadOffer, onResetOffer, onLoadNearbyO
     );
   }
 
-  const images = offer.images.slice(0, 6);
+  const images = offer.images.slice(0, IMAGE_NUMBER);
 
   return (
     <>
@@ -186,6 +189,11 @@ Room.propTypes = {
   onResetOffer: PropTypes.func,
   onLoadNearbyOffers: PropTypes.func,
   onResetNearbyOffers: PropTypes.func,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number
+    })
+  }),
 };
 
 const mapStateToProps = (state) => ({
@@ -197,9 +205,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffer: (id) => dispatch(fetchOffer(id)),
-  onResetOffer: () => dispatch(ActionCreator.resetOffer()),
+  onResetOffer: () => dispatch(ActionCreator.setOffer(null)),
   onLoadNearbyOffers: (id) => dispatch(fetchNearbyOffers(id)),
-  onResetNearbyOffers: () => dispatch(ActionCreator.resetNearbyOffers()),
+  onResetNearbyOffers: () => dispatch(ActionCreator.setNearbyOffers(null)),
 });
 
 export {Room};

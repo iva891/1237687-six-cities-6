@@ -40,7 +40,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadComments: (id) => dispatch(fetchComments(id)),
-  onResetComments: () => dispatch(ActionCreator.resetComments()),
+  onResetComments: () => dispatch(ActionCreator.setComments(null)),
 });
 
 export {ReviewsList};
