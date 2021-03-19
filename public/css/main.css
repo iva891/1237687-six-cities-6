@@ -20,4 +20,15 @@
   border-bottom-color: transparent;
   animation: spin 1s linear infinite;
 }
+
+.places__sorting-type {
+  min-width: 170px;
+	padding: 14px 16px 10px;
+	font-size: 14px;
+	line-height: 1.2143;
+}
+
+.places__sorting-arrow {
+  right: 10px;
+}
 /*# sourceMappingURL=main.css.map */

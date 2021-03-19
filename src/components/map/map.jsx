@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import 'leaflet/dist/leaflet.css';
 
-const Map = ({points, isRoom, cardId, offerId}) => {
+const Map = ({points, isRoom, cardId, offerId, currentCity}) => {
   const mapRef = useRef(null);
 
   let city = {
@@ -42,7 +42,7 @@ const Map = ({points, isRoom, cardId, offerId}) => {
     return () => {
       mapRef.current.remove();
     };
-  }, []);
+  }, [currentCity]);
 
   useEffect(() => {
     points.forEach((point) => {
@@ -88,11 +88,13 @@ Map.propTypes = {
   isRoom: PropTypes.bool,
   cardId: PropTypes.number,
   offerId: PropTypes.number,
+  currentCity: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   cardId: state.activeCardId,
   offerId: state.offer.id,
+  currentCity: state.city,
 });
 
 export {Map};

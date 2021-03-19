@@ -19,7 +19,7 @@ const ReviewItem = ({comment}) => {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${comment.rating * 10}%`}} />
+            <span style={{width: `${comment.rating * 20}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
