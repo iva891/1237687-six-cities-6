@@ -1,53 +1,38 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/action';
 import {connect} from 'react-redux';
-import {sortTypes} from '../../utils/const';
-import {sortOffersTypes} from '../../types/types';
+import {sortPlacecards} from '../../utils/const';
 
-const PlaceSort = ({onSortChange, sortOffers}) => {
-  const sortPlacecards = [
-    {
-      sortType: sortTypes.POPULAR,
-      text: `Popular`,
-    },
-    {
-      sortType: sortTypes.PRICE_LOW,
-      text: `Price: low to high`,
-    },
-    {
-      sortType: sortTypes.PRICE_HIGH,
-      text: `Price: high to low`,
-    },
-    {
-      sortType: sortTypes.RATING,
-      text: `Top rated first`,
-    },
-  ];
+const PlaceSort = ({onSortChange, sortKey}) => {
+
+  const sortList = useRef();
 
   const toggleSortList = () => {
-    document.querySelector(`.places__options.places__options--custom`).classList.toggle(`places__options--opened`);
+    sortList.current.classList.toggle(`places__options--opened`);
+  };
+
+  const onItemToggleSortList = (item) => {
+    onSortChange(item);
+    toggleSortList();
   };
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={() => toggleSortList()}>
-        {sortOffers.text}
+      <span className="places__sorting-type" tabIndex={0} onClick={toggleSortList}>
+        {sortPlacecards.find((item) => item.sortType === sortKey).text}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className="places__options places__options--custom">
+      <ul className="places__options places__options--custom" ref={sortList}>
         {sortPlacecards.map((item) =>
           <li
-            className={`${item.sortType === sortOffers.sortType ? `places__option--active` : ``} places__option`}
+            className={`${item.sortType === sortKey.sortType ? `places__option--active` : ``} places__option`}
             tabIndex={0}
             key={item.sortType}
-            onClick={() => {
-              onSortChange(item);
-              toggleSortList();
-            }}
+            onClick={() => onItemToggleSortList(item)}
           >{item.text}</li>
         )}
       </ul>
@@ -57,11 +42,11 @@ const PlaceSort = ({onSortChange, sortOffers}) => {
 
 PlaceSort.propTypes = {
   onSortChange: PropTypes.func,
-  sortOffers: sortOffersTypes,
+  sortKey: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
-  sortOffers: state.sortOffers,
+  sortKey: state.sortKey,
 });
 
 const mapDispatchToProps = (dispatch) => ({

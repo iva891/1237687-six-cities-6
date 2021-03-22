@@ -203,9 +203,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffer: (id) => dispatch(fetchOffer(id)),
-  onResetOffer: () => dispatch(ActionCreator.setOffer(null)),
+  onResetOffer: () => dispatch(ActionCreator.setOffer({})),
   onLoadNearbyOffers: (id) => dispatch(fetchNearbyOffers(id)),
-  onResetNearbyOffers: () => dispatch(ActionCreator.setNearbyOffers(null)),
+  onResetNearbyOffers: () => dispatch(ActionCreator.setNearbyOffers([])),
 });
 
 export {Room};

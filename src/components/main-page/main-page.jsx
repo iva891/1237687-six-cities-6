@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {offersTypes, sortOffersTypes} from '../../types/types';
+import {offersTypes} from '../../types/types';
 import PlaceSort from '../place-sort/place-sort';
 import PlaceList from '../place-list/place-list';
 import CityList from '../city-list/city-list';
@@ -8,23 +8,13 @@ import Map from '../map/map';
 import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {fetchOffers} from "../../store/api-actions";
-import {sortTypes} from '../../utils/const';
+import {sortItems} from '../../utils/utils';
 
 const MainPage = (props) => {
-  const {numbers, offers, cities, city, onLoadOffers, sortOffers} = props;
+  const {numbers, offers, cities, city, onLoadOffers, sortKey} = props;
   const cityOffers = offers.filter((offer) => offer.city.name === city);
 
-  switch (sortOffers.sortType) {
-    case sortTypes.PRICE_LOW:
-      cityOffers.sort((prev, next) => prev.price - next.price);
-      break;
-    case sortTypes.PRICE_HIGH:
-      cityOffers.sort((prev, next) => next.price - prev.price);
-      break;
-    case sortTypes.RATING:
-      cityOffers.sort((prev, next) => next.rating - prev.rating);
-      break;
-  }
+  sortItems(cityOffers, sortKey);
 
   const cityNumbers = numbers.length > cityOffers.length ? cityOffers : numbers;
 
@@ -101,13 +91,13 @@ MainPage.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   city: PropTypes.string.isRequired,
   onLoadOffers: PropTypes.func,
-  sortOffers: sortOffersTypes,
+  sortKey: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
   city: state.city,
-  sortOffers: state.sortOffers,
+  sortKey: state.sortKey,
 });
 
 const mapDispatchToProps = (dispatch) => ({

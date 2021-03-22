@@ -41,6 +41,6 @@ export const ActionCreator = {
   }),
   setSort: (sort) => ({
     type: ActionType.SET_SORT,
-    payload: sort
+    payload: sort.sortType
   }),
 };

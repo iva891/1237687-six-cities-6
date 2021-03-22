@@ -9,10 +9,7 @@ const initialState = {
   comments: [],
   nearbyOffers: [],
   activeCardId: 0,
-  sortOffers: {
-    sortType: sortTypes.POPULAR,
-    text: `Popular`,
-  },
+  sortKey: sortTypes.POPULAR,
 };
 
 const reducer = (state = initialState, action) => {
@@ -55,7 +52,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_SORT:
       return {
         ...state,
-        sortOffers: action.payload,
+        sortKey: action.payload,
       };
     default:
       return {...state};

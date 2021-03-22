@@ -28,7 +28,3 @@ export const offerTypes = PropTypes.shape({
 
 export const offersTypes = PropTypes.arrayOf(offerTypes);
 
-export const sortOffersTypes = PropTypes.shape({
-  sortType: PropTypes.string,
-  text: PropTypes.string
-});

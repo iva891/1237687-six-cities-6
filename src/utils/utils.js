@@ -1,3 +1,5 @@
+import {sortTypes} from './const';
+
 const type = (value) => {
   const regex = /^\[object (\S+?)\]$/;
   const matches = Object.prototype.toString.call(value).match(regex) || [];
@@ -20,4 +22,20 @@ const prepareData = (obj) => Object
     });
   }, {});
 
-export {prepareData};
+const getSortedPlaceUp = (data, key) => data.sort((a, b) => a[key] - b[key]);
+const getSortedPlaceDown = (data, key) => data.sort((a, b) => b[key] - a[key]);
+
+const sortItems = (cityOffers, sortKey) => {
+  switch (sortKey) {
+    case sortTypes.PRICE_LOW:
+      return getSortedPlaceUp(cityOffers, `price`);
+    case sortTypes.PRICE_HIGH:
+      return getSortedPlaceDown(cityOffers, `price`);
+    case sortTypes.RATING:
+      return getSortedPlaceDown(cityOffers, `rating`);
+    default:
+      return cityOffers;
+  }
+};
+
+export {prepareData, sortItems};
