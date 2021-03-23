@@ -102,7 +102,7 @@ const Room = (props) => {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{width: `${offer.rating * 10}%`}} />
+                    <span style={{width: `${offer.rating * 20}%`}} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="property__rating-value rating__value">{offer.rating}</span>
@@ -191,23 +191,21 @@ Room.propTypes = {
   onResetNearbyOffers: PropTypes.func,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.number
+      id: PropTypes.string
     })
   }),
 };
 
 const mapStateToProps = (state) => ({
   offer: state.offer,
-  offers: state.offers,
-  city: state.city,
   nearbyOffers: state.nearbyOffers,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffer: (id) => dispatch(fetchOffer(id)),
-  onResetOffer: () => dispatch(ActionCreator.setOffer(null)),
+  onResetOffer: () => dispatch(ActionCreator.setOffer({})),
   onLoadNearbyOffers: (id) => dispatch(fetchNearbyOffers(id)),
-  onResetNearbyOffers: () => dispatch(ActionCreator.setNearbyOffers(null)),
+  onResetNearbyOffers: () => dispatch(ActionCreator.setNearbyOffers([])),
 });
 
 export {Room};

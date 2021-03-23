@@ -27,3 +27,4 @@ export const offerTypes = PropTypes.shape({
 });
 
 export const offersTypes = PropTypes.arrayOf(offerTypes);
+

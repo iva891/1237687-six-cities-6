@@ -30,9 +30,9 @@ const PlaceCard = (props) => {
           </div>
         }
         <div className={`${setClassName().image} place-card__image-wrapper`}>
-          <a href="#">
+          <Link to={`/offer/${id}`}>
             <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
-          </a>
+          </Link>
         </div>
         <div className={`${isFavorite ? `favorites__card-info` : ``} place-card__info`}>
           <div className="place-card__price-wrapper">
@@ -49,7 +49,7 @@ const PlaceCard = (props) => {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{width: `${rating * 10}%`}} />
+              <span style={{width: `${rating * 20}%`}} />
               <span className="visually-hidden">Rating</span>
             </div>
           </div>

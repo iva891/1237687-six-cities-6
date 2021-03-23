@@ -7,6 +7,7 @@ export const ActionType = {
   SET_COMMENTS: `room/setComments`,
   SET_NEARBY_OFFERS: `room/setNearbyOffers`,
   HOVER_CARD: `placeList/setActiveCardId`,
+  SET_SORT: `main/setSort`,
 };
 
 export const ActionCreator = {
@@ -37,5 +38,9 @@ export const ActionCreator = {
   setActiveCardId: (id) => ({
     type: ActionType.HOVER_CARD,
     payload: id
+  }),
+  setSort: (sort) => ({
+    type: ActionType.SET_SORT,
+    payload: sort.sortType
   }),
 };

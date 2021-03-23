@@ -1,4 +1,5 @@
 import {ActionType} from './action';
+import {sortTypes} from '../utils/const';
 
 const initialState = {
   city: `Paris`,
@@ -8,6 +9,7 @@ const initialState = {
   comments: [],
   nearbyOffers: [],
   activeCardId: 0,
+  sortKey: sortTypes.POPULAR,
 };
 
 const reducer = (state = initialState, action) => {
@@ -46,6 +48,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         activeCardId: action.payload,
+      };
+    case ActionType.SET_SORT:
+      return {
+        ...state,
+        sortKey: action.payload,
       };
     default:
       return {...state};
