@@ -3,16 +3,18 @@ import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {connect} from 'react-redux';
-import {fetchOffer, fetchNearbyOffers} from "../../store/api-actions";
+import {fetchOffer, fetchNearbyOffers, fetchOfferFavorite} from "../../store/api-actions";
 import {ActionCreator} from '../../store/action';
 import PlaceList from '../place-list/place-list';
 import Map from '../map/map';
 import {offersTypes, offerTypes} from '../../types/types';
 import PropTypes from 'prop-types';
+import Header from '../header/header';
+import {Redirect} from 'react-router-dom';
 
 const Room = (props) => {
 
-  const {offer, nearbyOffers, onLoadOffer, onResetOffer, onLoadNearbyOffers, onResetNearbyOffers} = props;
+  const {offer, nearbyOffers, onLoadOffer, onResetOffer, onLoadNearbyOffers, onResetNearbyOffers, redirectStatus, authorizationStatus, toggleFavorite} = props;
   const id = props.match.params.id;
 
   const IMAGE_NUMBER = 6;
@@ -32,6 +34,10 @@ const Room = (props) => {
 
   }, [id, onLoadOffer, onResetOffer, onLoadNearbyOffers, onResetNearbyOffers]);
 
+  if (redirectStatus) {
+    return (<Redirect to={`/404`} />);
+  }
+
   if (Object.keys(offer).length === 0) {
     return (
       <LoadingScreen />
@@ -40,31 +46,14 @@ const Room = (props) => {
 
   const images = offer.images.slice(0, IMAGE_NUMBER);
 
+  const onClickFavorite = () => {
+    toggleFavorite(id, +!offer.isFavorite);
+  };
+
   return (
     <>
       <div className="page">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <a className="header__logo-link" href="/">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-                </a>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header />
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
@@ -93,7 +82,7 @@ const Room = (props) => {
                   <h1 className="property__name">
                     {offer.title}
                   </h1>
-                  <button className="property__bookmark-button button" type="button">
+                  <button className="property__bookmark-button button" type="button" onClick={onClickFavorite}>
                     <svg className="property__bookmark-icon" width={31} height={33} style={offer.isFavorite ? {fill: `#4481c3`, stroke: `#4481c3`} : null}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
@@ -155,7 +144,10 @@ const Room = (props) => {
                 </div>
                 <section className="property__reviews reviews">
                   <ReviewsList id={id} />
-                  <ReviewForm />
+                  {authorizationStatus ?
+                    <ReviewForm id={id} /> :
+                    <p className="reviews__title">Авторизуйтесь, чтобы оставить отзыв</p>
+                  }
                 </section>
               </div>
             </div>
@@ -189,6 +181,9 @@ Room.propTypes = {
   onResetOffer: PropTypes.func,
   onLoadNearbyOffers: PropTypes.func,
   onResetNearbyOffers: PropTypes.func,
+  redirectStatus: PropTypes.bool,
+  authorizationStatus: PropTypes.bool,
+  toggleFavorite: PropTypes.func,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string
@@ -199,6 +194,8 @@ Room.propTypes = {
 const mapStateToProps = (state) => ({
   offer: state.offer,
   nearbyOffers: state.nearbyOffers,
+  redirectStatus: state.redirectToNotFound,
+  authorizationStatus: state.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -206,6 +203,7 @@ const mapDispatchToProps = (dispatch) => ({
   onResetOffer: () => dispatch(ActionCreator.setOffer({})),
   onLoadNearbyOffers: (id) => dispatch(fetchNearbyOffers(id)),
   onResetNearbyOffers: () => dispatch(ActionCreator.setNearbyOffers([])),
+  toggleFavorite: (id, status) => dispatch(fetchOfferFavorite(id, status)),
 });
 
 export {Room};

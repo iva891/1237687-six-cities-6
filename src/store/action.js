@@ -8,6 +8,10 @@ export const ActionType = {
   SET_NEARBY_OFFERS: `room/setNearbyOffers`,
   HOVER_CARD: `placeList/setActiveCardId`,
   SET_SORT: `main/setSort`,
+  REQUIRE_AUTHORIZATION: `common/requireAuthorization`,
+  SET_USER: `login/setUser`,
+  LOGOUT_USER: `common/logoutUser`,
+  REDIRECT_NOT_FOUND: `room/redirect`,
 };
 
 export const ActionCreator = {
@@ -42,5 +46,20 @@ export const ActionCreator = {
   setSort: (sort) => ({
     type: ActionType.SET_SORT,
     payload: sort.sortType
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRE_AUTHORIZATION,
+    payload: status,
+  }),
+  setUser: (userData) => ({
+    type: ActionType.SET_USER,
+    payload: userData,
+  }),
+  logoutUser: () => ({
+    type: ActionType.LOGOUT_USER,
+  }),
+  redirectToNotFound: (status) => ({
+    type: ActionType.REDIRECT_NOT_FOUND,
+    payload: status,
   }),
 };

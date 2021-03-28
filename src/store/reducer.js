@@ -10,6 +10,9 @@ const initialState = {
   nearbyOffers: [],
   activeCardId: 0,
   sortKey: sortTypes.POPULAR,
+  authorizationStatus: false,
+  user: {},
+  redirectToNotFound: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +36,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offer: action.payload,
+        redirectToNotFound: false,
       };
     case ActionType.SET_COMMENTS:
       return {
@@ -53,6 +57,28 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         sortKey: action.payload,
+      };
+    case ActionType.REQUIRE_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload
+      };
+    case ActionType.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+        authorizationStatus: true
+      };
+    case ActionType.LOGOUT_USER:
+      return {
+        ...state,
+        user: {},
+        authorizationStatus: false
+      };
+    case ActionType.REDIRECT_NOT_FOUND:
+      return {
+        ...state,
+        redirectToNotFound: action.payload
       };
     default:
       return {...state};

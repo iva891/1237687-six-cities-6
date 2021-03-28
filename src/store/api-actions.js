@@ -23,6 +23,8 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
     data
   }) => prepareData(data))
   .then((data) => dispatch(ActionCreator.setOffer(data)))
+  .then(() => dispatch(ActionCreator.redirectToNotFound(false)))
+  .catch(() => dispatch(ActionCreator.redirectToNotFound(true)))
 );
 
 export const fetchComments = (id) => (dispatch, _getState, api) => (
@@ -39,4 +41,41 @@ export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => (
     data
   }) => data.map(prepareData))
   .then((data) => dispatch(ActionCreator.setNearbyOffers(data)))
+);
+
+export const checkAuth = () => (dispatch, _getState, api) => (
+  api.get(`/login`)
+    .then(({data}) => prepareData(data))
+    .then((data) => dispatch(ActionCreator.setUser(data)))
+    .then(() => dispatch(ActionCreator.requireAuthorization(true)))
+);
+
+export const login = ({login: email, password}) => (dispatch, _getState, api) => (
+  api.post(`/login`, {email, password})
+    .then(({data}) => prepareData(data))
+    .then((data) => dispatch(ActionCreator.setUser(data)))
+);
+
+export const logout = () => (dispatch, _getState, api) => (
+  api.get(`/logout`)
+    .then(() => dispatch(ActionCreator.logoutUser()))
+);
+
+export const submitComment = ({comment, rating, id}) => (dispatch, _getState, api) => (
+  api.post(`/comments/${id}`, {comment, rating})
+    .then(({
+      data
+    }) => data.map(prepareData))
+    .then((data) => dispatch(ActionCreator.setComments(data)))
+);
+
+export const fetchOfferFavorite = (id, status) => (dispatch, _getState, api) => (
+  api.post(`/favorite/${id}/${status}`)
+  .then(({
+    data
+  }) => prepareData(data))
+  .then((data) => dispatch(ActionCreator.setOffer(data)))
+  .then(() => dispatch(fetchOffers()))
+  .then(() => dispatch(fetchFavorites()))
+  .then(() => dispatch(fetchNearbyOffers()))
 );

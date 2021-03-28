@@ -6,6 +6,7 @@ import SignIn from '../sign-in/sign-in';
 import Favorites from '../favorites/favorites';
 import Room from '../room/room';
 import NotFound from '../not-found/not-found';
+import PrivateRoute from '../private-route/private-route';
 
 const App = ({numbers, cities}) => {
 
@@ -21,10 +22,15 @@ const App = ({numbers, cities}) => {
         <Route path="/login" exact >
           <SignIn />
         </Route>
-        <Route path="/favorites" exact>
-          <Favorites />
-        </Route>
+        <PrivateRoute exact
+          path="/favorites"
+          render={() => <Favorites />}
+        >
+        </PrivateRoute>
         <Route path="/offer/:id" component={ Room } exact>
+        </Route>
+        <Route path="/404" exact >
+          <NotFound />
         </Route>
         <Route>
           <NotFound />

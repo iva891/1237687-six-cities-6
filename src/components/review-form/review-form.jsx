@@ -1,13 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {submitComment} from "../../store/api-actions";
 
-const ReviewForm = () => {
+const ReviewForm = ({id, onSubmitReview}) => {
+
+  const MIN_COMMENT_LENGTH = 50;
+  const MAX_COMMENT_LENGTH = 300;
+
   const [reviewForm, setReviewForm] = useState({
-    rating: ``,
+    rating: 0,
     review: ``
   });
 
+  const formRef = useRef();
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
+    onSubmitReview({
+      comment: reviewForm.review,
+      rating: reviewForm.rating,
+      id,
+    });
+
+    formRef.current.reset();
   };
 
   const handleInputChange = (evt) => {
@@ -15,8 +32,10 @@ const ReviewForm = () => {
     setReviewForm({...reviewForm, [name]: value});
   };
 
+  let ableSubmitButton = reviewForm.rating && reviewForm.review.length > MIN_COMMENT_LENGTH;
+
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit} ref={formRef}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" defaultValue={5} id="5-stars" type="radio" onChange={handleInputChange} />
@@ -50,15 +69,25 @@ const ReviewForm = () => {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={``} onChange={handleInputChange} />
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={``} maxLength={`${MAX_COMMENT_LENGTH}`} onChange={handleInputChange} />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50, but no more than 300 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!ableSubmitButton}>Submit</button>
       </div>
     </form>
   );
 };
 
-export default ReviewForm;
+ReviewForm.propTypes = {
+  id: PropTypes.string,
+  onSubmitReview: PropTypes.func,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmitReview: (review) => dispatch(submitComment(review)),
+});
+
+export {ReviewForm};
+export default connect(null, mapDispatchToProps)(ReviewForm);
