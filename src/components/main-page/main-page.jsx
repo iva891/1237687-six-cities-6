@@ -12,12 +12,12 @@ import {sortItems} from '../../utils/utils';
 import Header from '../header/header';
 
 const MainPage = (props) => {
-  const {numbers, offers, cities, city, onLoadOffers, sortKey} = props;
+  const {offers, cities, city, onLoadOffers, sortKey} = props;
   const cityOffers = offers.filter((offer) => offer.city.name === city);
 
   sortItems(cityOffers, sortKey);
 
-  const cityNumbers = numbers.length > cityOffers.length ? cityOffers : numbers;
+  const cityNumbers = cityOffers;
 
   useEffect(() => {
     if (offers.length === 0) {
@@ -66,7 +66,6 @@ const MainPage = (props) => {
 };
 
 MainPage.propTypes = {
-  numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
   offers: offersTypes,
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,
   city: PropTypes.string.isRequired,

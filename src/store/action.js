@@ -11,7 +11,7 @@ export const ActionType = {
   REQUIRE_AUTHORIZATION: `common/requireAuthorization`,
   SET_USER: `login/setUser`,
   LOGOUT_USER: `common/logoutUser`,
-  REDIRECT_NOT_FOUND: `room/redirect`,
+  REVIEW_ERRROR: `reviewForm/reviewError`,
 };
 
 export const ActionCreator = {
@@ -27,9 +27,10 @@ export const ActionCreator = {
     type: ActionType.LOAD_FAVORITES,
     payload: favorites
   }),
-  setOffer: (offer) => ({
+  setOffer: (offer, isNotFound) => ({
     type: ActionType.SET_OFFER,
-    payload: offer
+    payload: offer,
+    isNotFound,
   }),
   setComments: (comments) => ({
     type: ActionType.SET_COMMENTS,
@@ -58,8 +59,8 @@ export const ActionCreator = {
   logoutUser: () => ({
     type: ActionType.LOGOUT_USER,
   }),
-  redirectToNotFound: (status) => ({
-    type: ActionType.REDIRECT_NOT_FOUND,
-    payload: status,
+  reviewError: (error) => ({
+    type: ActionType.REVIEW_ERRROR,
+    payload: error,
   }),
 };

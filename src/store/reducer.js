@@ -1,18 +1,21 @@
 import {ActionType} from './action';
-import {sortTypes} from '../utils/const';
+import {SortTypes} from '../utils/const';
 
 const initialState = {
   city: `Paris`,
   offers: [],
   favorites: [],
-  offer: {},
+  offerPage: {
+    offer: {},
+    isNotFound: false
+  },
   comments: [],
   nearbyOffers: [],
   activeCardId: 0,
-  sortKey: sortTypes.POPULAR,
+  sortKey: SortTypes.POPULAR,
   authorizationStatus: false,
   user: {},
-  redirectToNotFound: false,
+  reviewError: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -35,8 +38,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.SET_OFFER:
       return {
         ...state,
-        offer: action.payload,
-        redirectToNotFound: false,
+        offerPage: {
+          ...state.offerPage,
+          offer: action.payload,
+          isNotFound: action.isNotFound,
+        },
       };
     case ActionType.SET_COMMENTS:
       return {
@@ -75,10 +81,10 @@ const reducer = (state = initialState, action) => {
         user: {},
         authorizationStatus: false
       };
-    case ActionType.REDIRECT_NOT_FOUND:
+    case ActionType.REVIEW_ERRROR:
       return {
         ...state,
-        redirectToNotFound: action.payload
+        reviewError: action.payload
       };
     default:
       return {...state};

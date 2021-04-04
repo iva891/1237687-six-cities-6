@@ -10,14 +10,7 @@ import {createAPI} from "./services/api";
 import {checkAuth} from './store/api-actions';
 import {ActionCreator} from './store/action';
 
-const Settings = {
-  CARD_NUMBER: 4
-};
-
 const CITIES = [`Paris`, `Cologne`, `Brussels`, `Amsterdam`, `Hamburg`, `Dusseldorf`];
-
-const numbers = Array(Settings.CARD_NUMBER).fill(0)
-.map((_, index) => index + 1);
 
 const api = createAPI(
     () => store.dispatch(ActionCreator.requireAuthorization(false))
@@ -35,7 +28,6 @@ store.dispatch(checkAuth());
 ReactDom.render(
     <Provider store={store}>
       <App
-        numbers = {numbers}
         cities = {CITIES}
       />
     </Provider>,

@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {logout} from "../../store/api-actions";
 import PropTypes from 'prop-types';
 
-const Header = ({authorizationStatus, user, onLogout}) => {
+const Header = ({authorizationStatus, user = {}, onLogout}) => {
   return (
     <header className="header">
       <div className="container">
@@ -17,9 +17,9 @@ const Header = ({authorizationStatus, user, onLogout}) => {
           <nav className="header__nav">
             <ul className="header__nav-list" style={{alignItems: `center`}}>
               <li className="header__nav-item user">
-                <Link to="/favorites" className="header__nav-link header__nav-link--profile" href="#">
+                <Link to="/favorites" className="header__nav-link header__nav-link--profile">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
-                    {user.avatarUrl && <img src={user.avatarUrl} />}
+                    {authorizationStatus && user.avatarUrl && <img src={user.avatarUrl} />}
                   </div>
                   {authorizationStatus ?
                     <span className="header__user-name user__name">{user.email}</span> :

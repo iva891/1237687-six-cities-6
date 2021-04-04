@@ -10,14 +10,14 @@ const FavoritesLocation = (props) => {
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a className="locations__item-link" href="#">
+          <a className="locations__item-link">
             <span>{city}</span>
           </a>
         </div>
       </div>
       <div className="favorites__places">
         {favorites.map((card) =>
-          card.city.name === city && <PlaceCard key={card.id} offer={card} favorite />
+          card.city.name === city && <PlaceCard key={card.id} offer={card} isCardFavorite />
         )}
       </div>
     </li>

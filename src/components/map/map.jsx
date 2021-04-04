@@ -93,7 +93,7 @@ Map.propTypes = {
 
 const mapStateToProps = (state) => ({
   cardId: state.activeCardId,
-  offerId: state.offer.id,
+  offerId: state.offerPage.offer.id,
   currentCity: state.city,
 });
 

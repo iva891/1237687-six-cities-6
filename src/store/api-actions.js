@@ -22,9 +22,8 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
   .then(({
     data
   }) => prepareData(data))
-  .then((data) => dispatch(ActionCreator.setOffer(data)))
-  .then(() => dispatch(ActionCreator.redirectToNotFound(false)))
-  .catch(() => dispatch(ActionCreator.redirectToNotFound(true)))
+  .then((data) => dispatch(ActionCreator.setOffer(data, false)))
+  .catch(() => dispatch(ActionCreator.setOffer({}, true)))
 );
 
 export const fetchComments = (id) => (dispatch, _getState, api) => (
@@ -67,15 +66,19 @@ export const submitComment = ({comment, rating, id}) => (dispatch, _getState, ap
       data
     }) => data.map(prepareData))
     .then((data) => dispatch(ActionCreator.setComments(data)))
+    .catch((err) => dispatch(ActionCreator.reviewError(err.response)))
 );
 
-export const fetchOfferFavorite = (id, status) => (dispatch, _getState, api) => (
-  api.post(`/favorite/${id}/${status}`)
+export const fetchOfferFavorite = (id) => (dispatch, _getState, api) => {
+  api.get(`/hotels/${id}`)
   .then(({
     data
   }) => prepareData(data))
-  .then((data) => dispatch(ActionCreator.setOffer(data)))
-  .then(() => dispatch(fetchOffers()))
-  .then(() => dispatch(fetchFavorites()))
-  .then(() => dispatch(fetchNearbyOffers()))
-);
+  .then((data) => {
+    if (data.isFavorite === true) {
+      api.post(`/favorite/${data.id}/0`);
+    } else {
+      api.post(`/favorite/${data.id}/1`);
+    }
+  });
+};

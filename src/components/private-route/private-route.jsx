@@ -3,27 +3,23 @@ import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-const PrivateRoute = ({render, path, exact, authorizationStatus}) => {
-  return (
-    <Route
-      path={path}
-      exact={exact}
-      render={(routeProps) => {
-        return (
-          authorizationStatus
-            ? render(routeProps)
-            : <Redirect to={`/login`} />
-        );
-      }}
-    />
-  );
-};
+const PrivateRoute = ({component: Component, authorizationStatus, ...rest}) => (
+  <Route
+    {...rest}
+    render={(props) => (
+      authorizationStatus === false)
+      ? <Redirect to={`/login`} />
+      : <Component {...props} />
+    }
+  />
+);
 
 PrivateRoute.propTypes = {
   authorizationStatus: PropTypes.bool,
   exact: PropTypes.bool.isRequired,
   path: PropTypes.string.isRequired,
-  render: PropTypes.func.isRequired,
+  render: PropTypes.func,
+  component: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({

@@ -8,14 +8,13 @@ import Room from '../room/room';
 import NotFound from '../not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 
-const App = ({numbers, cities}) => {
+const App = ({cities}) => {
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
           <MainPage
-            numbers = {numbers}
             cities = {cities}
           />
         </Route>
@@ -24,10 +23,10 @@ const App = ({numbers, cities}) => {
         </Route>
         <PrivateRoute exact
           path="/favorites"
-          render={() => <Favorites />}
+          component={ ()=>(<Favorites />) }
         >
         </PrivateRoute>
-        <Route path="/offer/:id" component={ Room } exact>
+        <Route path="/offer/:id" component={Room} exact>
         </Route>
         <Route path="/404" exact >
           <NotFound />
@@ -41,7 +40,6 @@ const App = ({numbers, cities}) => {
 };
 
 App.propTypes = {
-  numbers: PropTypes.arrayOf(PropTypes.number).isRequired,
   cities: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

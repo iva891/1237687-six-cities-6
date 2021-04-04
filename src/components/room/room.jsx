@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReviewForm from '../review-form/review-form';
 import ReviewsList from '../reviews-list/reviews-list';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -14,8 +14,11 @@ import {Redirect} from 'react-router-dom';
 
 const Room = (props) => {
 
-  const {offer, nearbyOffers, onLoadOffer, onResetOffer, onLoadNearbyOffers, onResetNearbyOffers, redirectStatus, authorizationStatus, toggleFavorite} = props;
+  const {offer, nearbyOffers, onLoadOffer, onResetOffer, onLoadNearbyOffers, onResetNearbyOffers, authorizationStatus, toggleFavorite, isNotFound} = props;
   const id = props.match.params.id;
+
+  const [favoriteLabel, setFavoriteLabel] = useState(offer.isFavorite);
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
 
   const IMAGE_NUMBER = 6;
 
@@ -34,7 +37,7 @@ const Room = (props) => {
 
   }, [id, onLoadOffer, onResetOffer, onLoadNearbyOffers, onResetNearbyOffers]);
 
-  if (redirectStatus) {
+  if (isNotFound) {
     return (<Redirect to={`/404`} />);
   }
 
@@ -46,9 +49,19 @@ const Room = (props) => {
 
   const images = offer.images.slice(0, IMAGE_NUMBER);
 
+
   const onClickFavorite = () => {
-    toggleFavorite(id, +!offer.isFavorite);
+    if (authorizationStatus) {
+      setFavoriteLabel(!favoriteLabel);
+      toggleFavorite(id, +!offer.isFavorite);
+    } else {
+      setRedirectToLogin(true);
+    }
   };
+
+  if (redirectToLogin) {
+    return <Redirect to={`/login`} />;
+  }
 
   return (
     <>
@@ -83,7 +96,7 @@ const Room = (props) => {
                     {offer.title}
                   </h1>
                   <button className="property__bookmark-button button" type="button" onClick={onClickFavorite}>
-                    <svg className="property__bookmark-icon" width={31} height={33} style={offer.isFavorite ? {fill: `#4481c3`, stroke: `#4481c3`} : null}>
+                    <svg className="property__bookmark-icon" width={31} height={33} style={favoriteLabel ? {fill: `#4481c3`, stroke: `#4481c3`} : null}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
                     <span className="visually-hidden">To bookmarks</span>
@@ -181,7 +194,6 @@ Room.propTypes = {
   onResetOffer: PropTypes.func,
   onLoadNearbyOffers: PropTypes.func,
   onResetNearbyOffers: PropTypes.func,
-  redirectStatus: PropTypes.bool,
   authorizationStatus: PropTypes.bool,
   toggleFavorite: PropTypes.func,
   match: PropTypes.shape({
@@ -189,18 +201,19 @@ Room.propTypes = {
       id: PropTypes.string
     })
   }),
+  isNotFound: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
-  offer: state.offer,
+  offer: state.offerPage.offer,
   nearbyOffers: state.nearbyOffers,
-  redirectStatus: state.redirectToNotFound,
   authorizationStatus: state.authorizationStatus,
+  isNotFound: state.offerPage.isNotFound,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadOffer: (id) => dispatch(fetchOffer(id)),
-  onResetOffer: () => dispatch(ActionCreator.setOffer({})),
+  onResetOffer: () => dispatch(ActionCreator.setOffer({}, false)),
   onLoadNearbyOffers: (id) => dispatch(fetchNearbyOffers(id)),
   onResetNearbyOffers: () => dispatch(ActionCreator.setNearbyOffers([])),
   toggleFavorite: (id, status) => dispatch(fetchOfferFavorite(id, status)),
