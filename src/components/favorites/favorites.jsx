@@ -16,7 +16,6 @@ const Favorites = (props) => {
     onLoadFavorites();
   }, []);
 
-
   return (
     <div className="page">
       <Header />

@@ -13,7 +13,7 @@ const initialState = {
   nearbyOffers: [],
   activeCardId: 0,
   sortKey: SortTypes.POPULAR,
-  authorizationStatus: false,
+  authorizationStatus: true,
   user: {},
   reviewError: {},
 };

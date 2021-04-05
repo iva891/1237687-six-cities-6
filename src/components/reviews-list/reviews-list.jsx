@@ -5,6 +5,7 @@ import ReviewItem from '../review-item/review-item';
 import {connect} from 'react-redux';
 import {fetchComments} from "../../store/api-actions";
 import {ActionCreator} from '../../store/action';
+import {sortComments} from '../../utils/utils';
 
 const ReviewsList = ({id, comments, onLoadComments, onResetComments}) => {
 
@@ -16,6 +17,8 @@ const ReviewsList = ({id, comments, onLoadComments, onResetComments}) => {
     return (() => onResetComments());
 
   }, [id, onLoadComments, onResetComments]);
+
+  sortComments(comments);
 
   return (
     <>

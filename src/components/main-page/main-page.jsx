@@ -8,14 +8,14 @@ import Map from '../map/map';
 import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen';
 import {fetchOffers} from "../../store/api-actions";
-import {sortItems} from '../../utils/utils';
+import {sortCityOffers} from '../../utils/utils';
 import Header from '../header/header';
 
 const MainPage = (props) => {
   const {offers, cities, city, onLoadOffers, sortKey} = props;
   const cityOffers = offers.filter((offer) => offer.city.name === city);
 
-  sortItems(cityOffers, sortKey);
+  sortCityOffers(cityOffers, sortKey);
 
   const cityNumbers = cityOffers;
 

@@ -22,20 +22,22 @@ const prepareData = (obj) => Object
     });
   }, {});
 
-const getSortedPlaceUp = (data, key) => data.sort((a, b) => a[key] - b[key]);
-const getSortedPlaceDown = (data, key) => data.sort((a, b) => b[key] - a[key]);
+const getSortedUp = (data, key) => data.sort((a, b) => a[key] - b[key]);
+const getSortedDown = (data, key) => data.sort((a, b) => b[key] - a[key]);
 
-const sortItems = (cityOffers, sortKey) => {
+const sortCityOffers = (cityOffers, sortKey) => {
   switch (sortKey) {
     case SortTypes.PRICE_LOW:
-      return getSortedPlaceUp(cityOffers, `price`);
+      return getSortedUp(cityOffers, `price`);
     case SortTypes.PRICE_HIGH:
-      return getSortedPlaceDown(cityOffers, `price`);
+      return getSortedDown(cityOffers, `price`);
     case SortTypes.RATING:
-      return getSortedPlaceDown(cityOffers, `rating`);
+      return getSortedDown(cityOffers, `rating`);
     default:
       return cityOffers;
   }
 };
 
-export {prepareData, sortItems};
+const sortComments = (data) => data.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
+export {prepareData, sortCityOffers, sortComments};
