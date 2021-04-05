@@ -7,6 +7,7 @@ export const fetchOffers = () => (dispatch, _getState, api) => (
     data
   }) => data.map(prepareData))
   .then((data) => dispatch(ActionCreator.loadOffers(data)))
+  .catch((err) => dispatch(ActionCreator.loadingError(err.response)))
 );
 
 export const fetchFavorites = () => (dispatch, _getState, api) => (
@@ -15,6 +16,7 @@ export const fetchFavorites = () => (dispatch, _getState, api) => (
     data
   }) => data.map(prepareData))
   .then((data) => dispatch(ActionCreator.loadFavorites(data)))
+  .catch((err) => dispatch(ActionCreator.loadingError(err.response)))
 );
 
 export const fetchOffer = (id) => (dispatch, _getState, api) => (

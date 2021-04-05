@@ -1,4 +1,4 @@
-import {SortTypes} from './const';
+import {SortType} from './const';
 
 const setType = (value) => {
   const regex = /^\[object (\S+?)\]$/;
@@ -27,11 +27,11 @@ const getSortedDown = (data, key) => data.sort((a, b) => b[key] - a[key]);
 
 const sortCityOffers = (cityOffers, sortKey) => {
   switch (sortKey) {
-    case SortTypes.PRICE_LOW:
+    case SortType.PRICE_LOW:
       return getSortedUp(cityOffers, `price`);
-    case SortTypes.PRICE_HIGH:
+    case SortType.PRICE_HIGH:
       return getSortedDown(cityOffers, `price`);
-    case SortTypes.RATING:
+    case SortType.RATING:
       return getSortedDown(cityOffers, `rating`);
     default:
       return cityOffers;

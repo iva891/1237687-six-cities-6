@@ -27,7 +27,10 @@ const MainPage = (props) => {
 
   if (offers.length === 0) {
     return (
-      <LoadingScreen />
+      <>
+        <Header />
+        <LoadingScreen />
+      </>
     );
   }
 

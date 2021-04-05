@@ -1,4 +1,4 @@
-const SortTypes = {
+const SortType = {
   POPULAR: `popular`,
   PRICE_LOW: `priceLowToHigh`,
   PRICE_HIGH: `priceHighToLow`,
@@ -7,22 +7,22 @@ const SortTypes = {
 
 const SORT_PLACECARDS = [
   {
-    sortType: SortTypes.POPULAR,
+    sortType: SortType.POPULAR,
     text: `Popular`,
   },
   {
-    sortType: SortTypes.PRICE_LOW,
+    sortType: SortType.PRICE_LOW,
     text: `Price: low to high`,
   },
   {
-    sortType: SortTypes.PRICE_HIGH,
+    sortType: SortType.PRICE_HIGH,
     text: `Price: high to low`,
   },
   {
-    sortType: SortTypes.RATING,
+    sortType: SortType.RATING,
     text: `Top rated first`,
   },
 ];
 
 
-export {SortTypes, SORT_PLACECARDS};
+export {SortType, SORT_PLACECARDS};

@@ -12,6 +12,7 @@ export const ActionType = {
   SET_USER: `login/setUser`,
   LOGOUT_USER: `common/logoutUser`,
   REVIEW_ERRROR: `reviewForm/reviewError`,
+  LOADING_ERRROR: `common/loadingError`,
 };
 
 export const ActionCreator = {
@@ -61,6 +62,10 @@ export const ActionCreator = {
   }),
   reviewError: (error) => ({
     type: ActionType.REVIEW_ERRROR,
+    payload: error,
+  }),
+  loadingError: (error) => ({
+    type: ActionType.LOADING_ERRROR,
     payload: error,
   }),
 };

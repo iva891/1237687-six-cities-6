@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {logout} from "../../store/api-actions";
 import PropTypes from 'prop-types';
 
-const Header = ({authorizationStatus, user = {}, onLogout}) => {
+const Header = ({authorizationStatus, user = {}, onLogout, loadingError}) => {
   return (
     <header className="header">
       <div className="container">
@@ -35,6 +35,13 @@ const Header = ({authorizationStatus, user = {}, onLogout}) => {
             </ul>
           </nav>
         </div>
+        {Object.keys(loadingError).length !== 0 &&
+          <div style={{marginLeft: `20%`}}>
+            <h2>Ошибка сервера</h2>
+            <p>Ошибка: {loadingError.statusText}</p>
+            <p>Код ошибки: {loadingError.status}</p>
+          </div>
+        }
       </div>
     </header>
   );
@@ -50,11 +57,13 @@ Header.propTypes = {
     isPro: PropTypes.bool
   }),
   onLogout: PropTypes.func,
+  loadingError: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
   user: state.user,
+  loadingError: state.loadingError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
